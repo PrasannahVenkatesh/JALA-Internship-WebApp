@@ -1,0 +1,121 @@
+package com.example.demo.controller;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.example.demo.bean.AdminBean;
+import com.example.demo.bean.StudentBean;
+import com.example.demo.service.UserServiceIMPL;
+
+@RestController
+public class UserController {
+	
+	@Autowired
+	UserServiceIMPL service;
+	
+	int i = 0;
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public ModelAndView first() {
+		return new ModelAndView("index","adminBean",new AdminBean());
+	}
+	
+	@RequestMapping(value="/adminhome", method=RequestMethod.GET)
+	public ModelAndView adminHome() {
+		return new ModelAndView("home");
+	}
+	
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public ModelAndView logOut() {
+		return new ModelAndView("index","adminBean",new AdminBean());
+	}
+	
+	@RequestMapping(value="/homepage",method=RequestMethod.POST)
+	public ModelAndView login(@ModelAttribute("adminBean") AdminBean bean) {
+		ModelAndView modelAndView = new ModelAndView();
+		if(bean.getUsername().equals("admin") && bean.getPassword().equals("admin")) {
+			modelAndView.setViewName("home");
+		}
+		else{
+			modelAndView.setViewName("index");
+		}
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/studentdetails",method=RequestMethod.GET)
+	public ModelAndView studentreport() {
+		ModelAndView modelandview = new ModelAndView();
+		List<StudentBean> sbean = service.findAll();
+		modelandview.addObject("stubean",sbean);
+		modelandview.setViewName("studentreport");
+		return modelandview;
+	}
+	
+	@RequestMapping(value="/createstudent",method=RequestMethod.GET)
+	public ModelAndView studentCreation() {
+		return new ModelAndView("creationTab","studentbean",new StudentBean());
+	}
+	
+	@RequestMapping(value="/success",method=RequestMethod.POST)
+	public ModelAndView successfulCreation(@Valid @ModelAttribute("studentbean") StudentBean sbean ,BindingResult b) throws Exception {
+		ModelAndView modelandview = new ModelAndView();
+		if(b.hasErrors()) {
+			modelandview.setViewName("creationTab");
+		}
+		else {
+		String s = service.save(sbean);
+		modelandview.addObject("message",s);
+		modelandview.setViewName("successpage");
+		}
+		return modelandview;
+	}
+	
+	@RequestMapping(value="/deletestudent{Id}",method=RequestMethod.GET)
+	public ModelAndView deleteStudent(@PathVariable("Id") int studentID)
+	{
+		String s = service.delete(studentID);
+		return new ModelAndView("delete","message",s);
+	}
+	
+	@RequestMapping(value="/editstudent{Id}",method=RequestMethod.GET)
+	public ModelAndView editStudent(@PathVariable("Id") int studentID)
+	{
+		ModelAndView modelandview = new ModelAndView();
+		List<StudentBean> sbean = service.update(studentID);
+		for(StudentBean sBean:sbean){
+			modelandview.setViewName("update");
+			modelandview.addObject("studentbean",sBean);
+		}
+		modelandview.addObject("stbean",sbean);
+		return modelandview;
+	}
+	
+	@RequestMapping(value="/edited",method=RequestMethod.POST)
+	public ModelAndView editedsuccessful(@Valid @ModelAttribute("studentbean") StudentBean sbean ,BindingResult b) throws Exception {
+		ModelAndView modelandview = new ModelAndView();
+		int id = service.getId();
+		String s = service.edited(sbean,id);
+		modelandview.addObject("message",s);
+		modelandview.setViewName("successpage");
+		return modelandview;
+	}
+	
+	@RequestMapping(value="/search{s}",method=RequestMethod.GET)
+	public ModelAndView findStudent(@PathVariable("s") String value) {
+		ModelAndView mv = new ModelAndView();
+		List<StudentBean> sbean = service.search(value);
+		mv.addObject("stubean",sbean);
+		mv.setViewName("studentreport");
+		return mv;
+	}
+
+}
