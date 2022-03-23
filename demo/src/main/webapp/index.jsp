@@ -5,26 +5,27 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Admin Login</title>
+<title>Login </title>
 </head>
 <body>
 <center>
-	<form:form action="${pageContext.request.contextPath}/homepage" modelAttribute="adminBean" method="post">
-		<h2>ADMIN LOGIN</h2>
-		<table>
-		<tr>
-		<td>UserName</td>
-		<td><form:input path="username"></form:input></td>
-		</tr>
-		<tr>
-		<td>Password</td>
-		<td><form:password path="password"></form:password></td>
-		</tr>
-		<tr>
-		<td><input type="submit" placeholder="Login"></td>
-		</tr>
-		</table>
-	</form:form>
+<h2>Welcome!!!</h2><br>
+<h4>${message}</h4>
+<form:form action="${pageContext.request.contextPath}/jobseekers" modelAttribute="jobseeker" method="POST">
+<table>
+<tr>
+<td>Enter MobileNumber: </td>
+<td><form:input path="phoneNumber"/></td>
+</tr>
+<tr>
+<td>Password: </td>
+<td><form:password path="password"/></td>
+</tr>
+</table><br>
+<input type="submit" label="Submit"></input>
+</form:form>
+<br><br>
+<a href="${pageContext.request.contextPath}/admin">Click for ADMIN Login</a><br><br>
 </center>
 </body>
 </html>

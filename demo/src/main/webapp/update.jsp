@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page import="java.time.LocalDate" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,9 @@
 <title>Update Details</title>
 </head>
 <body>
+<% LocalDate date = LocalDate.now();
+LocalDate maxdate = date.minusDays(6570); 
+LocalDate avaldate = date.plusDays(90); %>
 <center>
 <form:form action="${pageContext.request.contextPath}/edited" modelAttribute="studentbean" method="post">
 		<c:forEach var="sb" items="${stbean}">
@@ -35,13 +39,18 @@
 			<td><form:errors path="emailId" cssClass="error"></form:errors>
 			</tr>
 			<tr>
+			<td>Set Password:</td>
+			<td><form:input path="password" value="${sb.password}"></form:input></td>
+			<td><form:errors path="password" cssClass="error"></form:errors>
+			</tr>
+			<tr>
 			<td>Gender:</td>
 			<td><form:input path="gender" value="${sb.gender}"></form:input></td>
 			<td><form:errors path="gender" cssClass="error"></form:errors>
 			</tr>
 			<tr>
 			<td>DOB:</td>
-			<td><form:input path="date" type="date" value="${sb.date}"></form:input></td>
+			<td><form:input path="date" type="date" value="${sb.date}" max="<%= maxdate %>"></form:input></td>
 			<td><form:errors path="date" cssClass="error"></form:errors>
 			</tr>
 			<tr>
@@ -54,6 +63,11 @@
 			<td><form:input path="skills" value="${sb.skills}"></form:input></td>
 			<td><form:errors path="skills" cssClass="error"></form:errors>
 			</tr>	
+			<tr>
+			<td>Active till Date:</td>
+			<td><form:input path="activeTill" type="date" max="<%= avaldate %>" min="<%= date %>" value="${sb.activeTill}"></form:input></td>
+			<td><form:errors path="activeTill" cssClass="error"></form:errors>
+			</tr>
 			<tr>
 			<td>Description:</td>
 			<td><form:textarea path="description" maxlength="50" placeholder="${sb.description}"></form:textarea></td>

@@ -28,7 +28,23 @@ public class StudentEntity {
 	private String skills;
 	private byte[] image;
 	private String description;
+	private String password;
+	private Date activeTill;
 	
+	
+	
+	public Date getActiveTill() {
+		return activeTill;
+	}
+	public void setActiveTill(Date activeTill) {
+		this.activeTill = activeTill;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	
 	public byte[] getImage() {
 		return image;

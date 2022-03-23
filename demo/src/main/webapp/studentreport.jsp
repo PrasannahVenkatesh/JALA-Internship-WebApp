@@ -8,7 +8,7 @@
 <meta charset="ISO-8859-1">
 <title>Student Details</title>
 <script>
-function remove(){
+function remove(id){
 	var s = confirm("Confirm Before Deleting Details");
 	if(s==true){
 		window.location="http://localhost:8080/deletestudent"+id;

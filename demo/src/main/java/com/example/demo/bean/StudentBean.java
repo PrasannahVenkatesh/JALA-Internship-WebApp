@@ -34,8 +34,26 @@ public class StudentBean {
 	@NotEmpty(message="This is  required field")
 	private byte[] image;
 	private String description;
+	@NotEmpty(message="This is  required field")
+	private String password;
+	@NotNull(message="This is  required field")
+	@DateTimeFormat(pattern="yyyy-mm-dd")
+	private Date activeTill;
 	
 	
+	
+	public Date getActiveTill() {
+		return activeTill;
+	}
+	public void setActiveTill(Date activeTill) {
+		this.activeTill = activeTill;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public byte[] getImage() {
 		return image;
 	}

@@ -4,11 +4,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Success Page</title>
+<title>Insert title here</title>
 </head>
 <body>
 <center>
-<h3>${message}</h3>
+<h1>${message}</h1>
+<a href="${pageContext.request.contextPath}/login">Click to LogOut</a>
 </center>
 </body>
 </html>

@@ -1,5 +1,9 @@
 package com.example.demo.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.bean.AdminBean;
+import com.example.demo.bean.JobSeekersBean;
 import com.example.demo.bean.StudentBean;
 import com.example.demo.service.UserServiceIMPL;
 
@@ -24,9 +29,39 @@ public class UserController {
 	UserServiceIMPL service;
 	
 	int i = 0;
+	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public ModelAndView login() {
+		return new ModelAndView("index","jobseeker", new JobSeekersBean());
+	}
+	
+	@RequestMapping(value="/jobseekers", method=RequestMethod.POST)
+	public ModelAndView interns(@ModelAttribute("jobseeker") JobSeekersBean jobseekers) throws ParseException {
+		ModelAndView modelandview = new ModelAndView();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/mm/dd");  
+	    Date date = new Date();  
+	    Date today = formatter.parse(formatter.format(date));
+		StudentBean stubean = service.checkJobSeeker(jobseekers.getPhoneNumber());
+		if(stubean!=null && stubean.getPassword().equals(jobseekers.getPassword())) {
+			if(stubean.getActiveTill().compareTo(today) >= 0) {
+				modelandview.setViewName("index");
+				modelandview.addObject("jobseeker",new JobSeekersBean());
+				modelandview.addObject("message", "Your access has expired/ended");
+			}
+			modelandview.setViewName("jobseekers");
+			modelandview.addObject("message","Welcome "+stubean.getFirstName()+" Courses will be Added Soon...!!!");
+		}
+		else {
+			modelandview.setViewName("index");
+			modelandview.addObject("jobseeker",new JobSeekersBean());
+			modelandview.addObject("message", "Enter Valid UserName or Password");
+		}
+		return modelandview;
+	}
+	
+	@RequestMapping(value="/admin", method=RequestMethod.GET)
 	public ModelAndView first() {
-		return new ModelAndView("index","adminBean",new AdminBean());
+		return new ModelAndView("admin","adminBean",new AdminBean());
 	}
 	
 	@RequestMapping(value="/adminhome", method=RequestMethod.GET)
@@ -36,7 +71,7 @@ public class UserController {
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public ModelAndView logOut() {
-		return new ModelAndView("index","adminBean",new AdminBean());
+		return new ModelAndView("admin","adminBean",new AdminBean());
 	}
 	
 	@RequestMapping(value="/homepage",method=RequestMethod.POST)

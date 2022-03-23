@@ -84,6 +84,13 @@ public class UserServiceIMPL implements UserService{
 		return sbean;
 	}
 	
+	public StudentBean checkJobSeeker(String phonenumber) {
+		StudentEntity se = dao.checkJobSeeker(phonenumber);
+		StudentBean sb = new StudentBean();
+		BeanUtils.copyProperties(se, sb);
+		return sb;
+	}
+	
 	
 	
 

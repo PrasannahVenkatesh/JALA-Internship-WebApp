@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page import="java.time.LocalDate" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,9 @@ font-style:italic;
 </style>
 </head>
 <body>
+<% LocalDate date = LocalDate.now();
+LocalDate maxdate = date.minusDays(6570); 
+LocalDate avaldate = date.plusDays(90); %>
 <center>
 	<h2>Student Creation Form</h2><br>
 	<form:form action="${pageContext.request.contextPath}/success" modelAttribute="studentbean" method="post">
@@ -39,6 +43,11 @@ font-style:italic;
 			<td><form:errors path="emailId" cssClass="error"></form:errors>
 			</tr>
 			<tr>
+			<td>Set Password:</td>
+			<td><form:input path="password"></form:input></td>
+			<td><form:errors path="password" cssClass="error"></form:errors>
+			</tr>
+			<tr>
 			<td>Gender:</td>
 			<td><form:radiobutton path="gender" value="Male" label="Male"></form:radiobutton></td>
 			<td><form:radiobutton path="gender" value="Female" label="Female"></form:radiobutton></td>
@@ -46,7 +55,7 @@ font-style:italic;
 			</tr>
 			<tr>
 			<td>DOB:</td>
-			<td><form:input path="date" type="date"></form:input></td>
+			<td><form:input path="date" type="date" max="<%= maxdate %>"></form:input></td>
 			<td><form:errors path="date" cssClass="error"></form:errors>
 			</tr>
 			<tr>
@@ -66,6 +75,11 @@ font-style:italic;
 			<td><form:checkbox path="skills" value="JAVA,.Net and Python" label="JAVA,.Net and Python"></form:checkbox></td>
 			<td><form:checkbox path="skills" value="Database            " label="Database"/></td>
 			<td><form:errors path="skills" cssClass="error"></form:errors>
+			</tr>
+			<tr>
+			<td>Active till Date:</td>
+			<td><form:input path="activeTill" type="date" max="<%= avaldate %>" min="<%= date %>"></form:input></td>
+			<td><form:errors path="activeTill" cssClass="error"></form:errors>
 			</tr>
 			<tr>
 			<td>Upload Image:</td>

@@ -11,5 +11,8 @@ public interface StudentDAO extends JpaRepository<StudentEntity,Integer>{
 	
 	@Query("select s from StudentEntity s where UPPER(s.firstName)=UPPER(?1) or UPPER(s.lastName)=UPPER(?1) or UPPER(s.mobileNumber)=UPPER(?1)")
 	public List<StudentEntity> findBySearch(String value);
+	
+	@Query("select s from StudentEntity s where s.mobileNumber=?1")
+	public StudentEntity checkJobSeeker(String phonenumber);
 
 }
