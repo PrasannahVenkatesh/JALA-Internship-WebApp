@@ -9,7 +9,7 @@
 </head>
 <body>
 <center>
-<h2>Welcome!!!!</h2><br>
+<h2>Welcome!!!</h2><br>
 <h4>${message}</h4>
 <form:form action="${pageContext.request.contextPath}/jobseekers" modelAttribute="jobseeker" method="POST">
 <table>
