@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,9 @@ import com.example.demo.bean.StudentBean;
 import com.example.demo.dao.StudentDAO;
 import com.example.demo.entity.StudentEntity;
 
+/* In Service class, The methods in DAO are called and it acts as bridge between DAO and UserController class. 
+ * Convertion of Entity to Bean and viceversa are done by using BeanUtils methods
+ * */
 @Service
 public class UserServiceIMPL implements UserService{
 	

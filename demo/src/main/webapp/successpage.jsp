@@ -8,6 +8,7 @@
 </head>
 <body>
 <center>
+<!-- message is send from UserController and its displayed in Webpage using ${ } and added link to view studentdetails -->
 <h3>${message}</h3>
 <a href="${pageContext.request.contextPath}/adminhome">Home</a>
 </center>

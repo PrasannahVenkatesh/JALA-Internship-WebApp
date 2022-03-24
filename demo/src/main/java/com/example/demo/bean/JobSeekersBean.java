@@ -4,6 +4,7 @@ import javax.validation.constraints.NotEmpty;
 
 public class JobSeekersBean {
 	
+	// NotEmpty annotation is used to avoid empty value while submitting form.
 	@NotEmpty
 	private String phoneNumber;
 	@NotEmpty

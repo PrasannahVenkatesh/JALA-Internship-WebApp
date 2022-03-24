@@ -20,13 +20,14 @@ import com.example.demo.bean.JobSeekersBean;
 import com.example.demo.bean.StudentBean;
 import com.example.demo.service.UserServiceIMPL;
 
+/*
+ * Controller acts as bridge between database/bean and webpage, It accepts the url and connect with repective function with the help of RequestMapping annotation.
+ */
 @RestController
 public class UserController {
 	
 	@Autowired
 	UserServiceIMPL service;
-	
-	int i = 0;
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public ModelAndView login() {
@@ -38,7 +39,9 @@ public class UserController {
 		ModelAndView modelandview = new ModelAndView(); 
 	    LocalDate date = LocalDate.now();  
 		StudentBean stubean = service.checkJobSeeker(jobseekers.getPhoneNumber());
+		// Validating username and password
 		if(stubean!=null && stubean.getPassword().equals(jobseekers.getPassword())) {
+			// validate days for active user
 			if(stubean.getActiveTill().compareTo(date) <= 0) {
 				modelandview.setViewName("index");
 				modelandview.addObject("jobseeker",new JobSeekersBean());
@@ -72,6 +75,7 @@ public class UserController {
 		return new ModelAndView("admin","adminBean",new AdminBean());
 	}
 	
+	// Admin validation and requests
 	@RequestMapping(value="/homepage",method=RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("adminBean") AdminBean bean) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -98,6 +102,7 @@ public class UserController {
 		return new ModelAndView("creationTab","studentbean",new StudentBean());
 	}
 	
+	// Enrollment form validation
 	@RequestMapping(value="/success",method=RequestMethod.POST)
 	public ModelAndView successfulCreation(@Valid @ModelAttribute("studentbean") StudentBean sbean ,BindingResult b) throws Exception {
 		ModelAndView modelandview = new ModelAndView();

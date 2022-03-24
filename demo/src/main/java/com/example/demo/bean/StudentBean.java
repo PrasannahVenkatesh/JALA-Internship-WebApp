@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class StudentBean {
 	
+	// Restriction like mandatory field etc., are achieved using NotEmpty annotation to avoid empty values.
 	private int studentId;
 	@NotEmpty(message="This is  required field")
 	private String firstName;
@@ -39,7 +40,6 @@ public class StudentBean {
 	@NotNull(message="This is  required field")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate activeTill;
-	
 	
 	
 	public LocalDate getActiveTill() {

@@ -15,12 +15,17 @@ font-style:italic;
 </style>
 </head>
 <body>
+<!-- Using LocalDate library to restrict the dates and timespan for our needs. Its has many inbuilt methods to perform desired actions. 
+ minusDays method -> Only above 18 years student only can apply 
+ plusDays method-> THe student/jobseekers are able to access the portal for max of 90 days from today/applying date -->
 <% LocalDate today = LocalDate.now();
 LocalDate maxdate = today.minusDays(6570); 
 LocalDate avaldate = today.plusDays(90); 
 %>
 <center>
 	<h2>Student Creation Form</h2><br>
+	<!-- Form tag is used to store the values in StudentBean by sending the bean "studentbean" to UserController through modelAttribute method and 
+	storing the values is done by using path method inside form tag-->
 	<form:form action="${pageContext.request.contextPath}/success" modelAttribute="studentbean" method="post">
 		<table border="1">
 			<tr>
@@ -56,6 +61,7 @@ LocalDate avaldate = today.plusDays(90);
 			</tr>
 			<tr>
 			<td>DOB:</td>
+			<!-- Setting restriction for DOB because non graduate students are not able to apply and its done by using max method in form tag -->
 			<td><form:input path="date" type="date" max="<%= maxdate %>"></form:input></td>
 			<td><form:errors path="date" cssClass="error"></form:errors>
 			</tr>

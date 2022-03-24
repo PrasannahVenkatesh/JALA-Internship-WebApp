@@ -8,7 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
+/*
+ * Entity Class is used to store data in database and primary key is set by using Id annotation
+ */
 @Entity
 @Table(name = "student")
 public class StudentEntity {

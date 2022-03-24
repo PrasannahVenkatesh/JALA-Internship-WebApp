@@ -10,12 +10,16 @@
 <title>Update Details</title>
 </head>
 <body>
+<!-- Using LocalDate library to restrict the dates and timespan for our needs. Its has many inbuilt methods to perform desired actions. 
+ minusDays method -> Only above 18 years student only can apply 
+ plusDays method-> THe student/jobseekers are able to access the portal for max of 90 days from today/applying date -->
 <% LocalDate today = LocalDate.now();
 LocalDate maxdate = today.minusDays(6570); 
 LocalDate avaldate = today.plusDays(90);
 %>
 <center>
 <form:form action="${pageContext.request.contextPath}/edited" modelAttribute="studentbean" method="post">
+		<!-- Getting values from the UserController and using forEach method in form tag to display already entered values for easy updation -->
 		<c:forEach var="sb" items="${stbean}">
 		<h1>Update the Student Details of ID: ${sb.studentId}</h1>
 		<table border="1">

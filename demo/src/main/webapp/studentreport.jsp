@@ -7,6 +7,9 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Student Details</title>
+<!-- In this file, we are displaying the records in database using data we got from UserController Class and adding user preference of update and delete record. 
+ Here pop up is displayed if we want to update the data like ok or cancel, According to the user choice it will redirect to respective page and it is done 
+ by using javascript. -->
 <script>
 function remove(id){
 	var s = confirm("Confirm Before Deleting Details");
@@ -46,6 +49,7 @@ function search(){
 </tr>
 <tr>
 <td>${sb.studentId}</td><td>${sb.firstName}</td><td>${sb.lastName}</td><td>${sb.skills}</td><td>${sb.mobileNumber}</td>
+<!-- function calling while clicking the button -->
 <td><button onclick="update(${sb.studentId})">Click to Edit</button></td>
 <td><button onclick="remove(${sb.studentId})">Click to Delete</button></td>
 </tr>
