@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page import="java.time.LocalDate,java.util.Date,java.time.format.DateTimeFormatter,java.text.SimpleDateFormat" %>
+<%@ page import="java.time.LocalDate,java.util.Date" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +13,6 @@
 <% LocalDate today = LocalDate.now();
 LocalDate maxdate = today.minusDays(6570); 
 LocalDate avaldate = today.plusDays(90);
-Date today1 = new SimpleDateFormat("yyyy-mm-dd").parse(today.toString());
-Date maxdate1 = new SimpleDateFormat("yyyy-mm-dd").parse(maxdate.toString());
-Date avaldate1 = new SimpleDateFormat("yyyy-mm-dd").parse(avaldate.toString());
 %>
 <center>
 <form:form action="${pageContext.request.contextPath}/edited" modelAttribute="studentbean" method="post">
