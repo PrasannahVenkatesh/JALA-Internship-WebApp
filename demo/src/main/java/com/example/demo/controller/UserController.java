@@ -1,9 +1,7 @@
 package com.example.demo.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -37,19 +35,19 @@ public class UserController {
 	
 	@RequestMapping(value="/jobseekers", method=RequestMethod.POST)
 	public ModelAndView interns(@ModelAttribute("jobseeker") JobSeekersBean jobseekers) throws ParseException {
-		ModelAndView modelandview = new ModelAndView();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/mm/dd");  
-	    Date date = new Date();  
-	    Date today = formatter.parse(formatter.format(date));
+		ModelAndView modelandview = new ModelAndView(); 
+	    LocalDate date = LocalDate.now();  
 		StudentBean stubean = service.checkJobSeeker(jobseekers.getPhoneNumber());
 		if(stubean!=null && stubean.getPassword().equals(jobseekers.getPassword())) {
-			if(stubean.getActiveTill().compareTo(today) >= 0) {
+			if(stubean.getActiveTill().compareTo(date) <= 0) {
 				modelandview.setViewName("index");
 				modelandview.addObject("jobseeker",new JobSeekersBean());
 				modelandview.addObject("message", "Your access has expired/ended");
 			}
+			else {
 			modelandview.setViewName("jobseekers");
 			modelandview.addObject("message","Welcome "+stubean.getFirstName()+" Courses will be Added Soon...!!!");
+			}
 		}
 		else {
 			modelandview.setViewName("index");

@@ -1,14 +1,13 @@
 package com.example.demo.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 
 @Entity
 @Table(name = "student")
@@ -21,22 +20,21 @@ public class StudentEntity {
 	private String lastName;
 	private String mobileNumber;
 	private String emailId;
-	private String gender;
-	@Temporal(TemporalType.DATE)	
-	private Date date;	
+	private String gender;	
+	private LocalDate date;	
 	private String qualification;
 	private String skills;
 	private byte[] image;
 	private String description;
-	private String password;
-	private Date activeTill;
+	private String password;	
+	private LocalDate activeTill;
 	
 	
 	
-	public Date getActiveTill() {
+	public LocalDate getActiveTill() {
 		return activeTill;
 	}
-	public void setActiveTill(Date activeTill) {
+	public void setActiveTill(LocalDate activeTill) {
 		this.activeTill = activeTill;
 	}
 	public String getPassword() {
@@ -88,10 +86,10 @@ public class StudentEntity {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	public String getQualification() {

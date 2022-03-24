@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.LocalDate,java.util.Date,java.time.format.DateTimeFormatter,java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +10,13 @@
 <title>Update Details</title>
 </head>
 <body>
-<% LocalDate date = LocalDate.now();
-LocalDate maxdate = date.minusDays(6570); 
-LocalDate avaldate = date.plusDays(90); %>
+<% LocalDate today = LocalDate.now();
+LocalDate maxdate = today.minusDays(6570); 
+LocalDate avaldate = today.plusDays(90);
+Date today1 = new SimpleDateFormat("yyyy-mm-dd").parse(today.toString());
+Date maxdate1 = new SimpleDateFormat("yyyy-mm-dd").parse(maxdate.toString());
+Date avaldate1 = new SimpleDateFormat("yyyy-mm-dd").parse(avaldate.toString());
+%>
 <center>
 <form:form action="${pageContext.request.contextPath}/edited" modelAttribute="studentbean" method="post">
 		<c:forEach var="sb" items="${stbean}">
@@ -65,7 +69,7 @@ LocalDate avaldate = date.plusDays(90); %>
 			</tr>	
 			<tr>
 			<td>Active till Date:</td>
-			<td><form:input path="activeTill" type="date" max="<%= avaldate %>" min="<%= date %>" value="${sb.activeTill}"></form:input></td>
+			<td><form:input path="activeTill" type="date" value="${sb.activeTill}" max="<%= avaldate %>" min="<%= today %>" ></form:input></td>
 			<td><form:errors path="activeTill" cssClass="error"></form:errors>
 			</tr>
 			<tr>

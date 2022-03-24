@@ -1,7 +1,7 @@
 package com.example.demo.bean;
 
-import java.text.ParseException;
-import java.util.Date;
+
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -25,8 +25,8 @@ public class StudentBean {
 	@NotEmpty(message="This is  required field")
 	private String gender;
 	@NotNull(message="This is  required field")
-	@DateTimeFormat(pattern="yyyy-mm-dd")
-	private Date date;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate date;
 	@NotEmpty(message="This is  required field")
 	private String qualification;
 	@NotEmpty(message="This is  required field")
@@ -37,15 +37,15 @@ public class StudentBean {
 	@NotEmpty(message="This is  required field")
 	private String password;
 	@NotNull(message="This is  required field")
-	@DateTimeFormat(pattern="yyyy-mm-dd")
-	private Date activeTill;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate activeTill;
 	
 	
 	
-	public Date getActiveTill() {
+	public LocalDate getActiveTill() {
 		return activeTill;
 	}
-	public void setActiveTill(Date activeTill) {
+	public void setActiveTill(LocalDate activeTill) {
 		this.activeTill = activeTill;
 	}
 	public String getPassword() {
@@ -96,10 +96,10 @@ public class StudentBean {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(Date date){
+	public void setDate(LocalDate date){
 		this.date = date;
 	}
 	public String getQualification() {
