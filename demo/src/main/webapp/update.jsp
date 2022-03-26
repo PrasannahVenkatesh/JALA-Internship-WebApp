@@ -60,7 +60,14 @@ LocalDate avaldate = today.plusDays(90);
 			</tr>
 			<tr>
 			<td>Qualification:</td>
-			<td><form:input path="qualification" value="${sb.qualification}"></form:input></td>
+			<td><form:select path="qualification" value="${sb.qualification}">
+				<form:option value="B.Tech" label="B.Tech"></form:option>
+				<form:option value="MCA" label="MCA"></form:option>
+				<form:option value="Graduation" label="Graduation"></form:option>
+				<form:option value="Post-Graduation" label="Post-Graduation"></form:option>
+				<form:option value="MBA" label="MBA"></form:option>
+				<form:option value="Others" label="Others"></form:option>
+				</form:select></td>
 			<td><form:errors path="qualification" cssClass="error"></form:errors>
 			</tr>
 			<tr>

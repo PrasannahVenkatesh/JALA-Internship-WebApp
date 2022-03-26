@@ -79,8 +79,10 @@ LocalDate avaldate = today.plusDays(90);
 			</tr>
 			<tr>
 			<td>Skils:</td>
-			<td><form:checkbox path="skills" value="JAVA,.Net and Python" label="JAVA,.Net and Python"></form:checkbox></td>
-			<td><form:checkbox path="skills" value="Database            " label="Database"/></td>
+			<td><form:checkbox path="skills" value="JAVA" label="JAVA"></form:checkbox></td>
+			<td><form:checkbox path="skills" value="Database" label="Database"/></td>
+			<td><form:checkbox path="skills" value=".Net" label=".Net"></form:checkbox></td>
+			<td><form:checkbox path="skills" value="Python" label="Python"></form:checkbox></td>
 			<td><form:errors path="skills" cssClass="error"></form:errors>
 			</tr>
 			<tr>

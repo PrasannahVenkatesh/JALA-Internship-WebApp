@@ -71,6 +71,8 @@ public class UserServiceIMPL implements UserService{
 		sentity.setQualification(sbean.getQualification());
 		sentity.setSkills(sbean.getSkills());
 		sentity.setDescription(sbean.getDescription());
+		sentity.setActiveTill(sbean.getActiveTill());
+		sentity.setPassword(sbean.getPassword());
 		dao.save(sentity);
 		return "Details Updated Successfully";
 	}
