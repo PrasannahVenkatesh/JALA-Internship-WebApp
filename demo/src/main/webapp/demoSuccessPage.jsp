@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Deleted Student</title>
+<title>Success Page</title>
 </head>
 <body>
 <center>
 <!-- message is send from UserController and its displayed in Webpage and added link to view studentdetails -->
-<h2>${message}</h2><br>
-<a href="${pageContext.request.contextPath}/studentdetails0">Click to View Student Details</a>
+<h3>${message}</h3>
+<a href="${pageContext.request.contextPath}/demoforjobseeker">Home</a>
 </center>
 </body>
 </html>

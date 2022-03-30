@@ -11,11 +11,11 @@
  Here pop up is displayed if we want to update the data like ok or cancel, According to the user choice it will redirect to respective page and it is done 
  by using javascript. -->
 <script>
-var url = "http://localhost:8080/studentdetails0";
+var url = "http://localhost:8080/demostudentdetails0";
 function remove(id){
 	var s = confirm("Confirm Before Deleting Details");
 	if(s==true){
-		window.location="http://localhost:8080/deletestudent"+id;
+		window.location="http://localhost:8080/demodeletestudent"+id;
 	}
 	else{
 		window.location=url;
@@ -24,7 +24,7 @@ function remove(id){
 function update(id){
 	var s = confirm("Confirm Before Editing Details");
 	if(s==true){
-		window.location="http://localhost:8080/editstudent"+id;
+		window.location="http://localhost:8080/demoeditstudent"+id;
 	}
 	else{
 		window.location=url;
@@ -32,16 +32,16 @@ function update(id){
 }
 function search(){
 	var s = document.getElementById("searchstudent").value;
-	window.location="http://localhost:8080/search"+s;
+	window.location="http://localhost:8080/demosearch"+s;
 }
 
 function page(){
-	window.location="http://localhost:8080/studentdetail"+0;
+	window.location="http://localhost:8080/demostudentdetail"+0;
 }
 
 function run(p){
-var url ="http://localhost:8080/studentdetails";
-window.location="http://localhost:8080/studentdetails"+p;
+var url ="http://localhost:8080/demostudentdetails";
+window.location="http://localhost:8080/demostudentdetails"+p;
 }
 
 </script>
@@ -54,7 +54,7 @@ window.location="http://localhost:8080/studentdetails"+p;
 <button onclick="search()">Search</button>
 <br><br>
 
-<form:form action="${pageContext.request.contextPath}/studentdetail" modelAttribute="pcb" method="POST">
+<form:form action="${pageContext.request.contextPath}/demostudentdetail" modelAttribute="pcb" method="POST">
 <label>Select No.of Records per page</label>
 <form:select path="count" value="" >
 <form:option value="10" label="10"></form:option>
@@ -82,7 +82,7 @@ window.location="http://localhost:8080/studentdetails"+p;
 <c:forEach var="i" begin="0" end="${total}">
 <button id="pageNo" onclick="run(${i})">${i+1}</button></td>
 </c:forEach><br>
-<a href="${pageContext.request.contextPath}/adminhome">Home</a>
+<a href="${pageContext.request.contextPath}/demoforjobseeker">Home</a>
 </center>
 </body>
 </html>

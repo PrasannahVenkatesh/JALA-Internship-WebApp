@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.bean.AdminBean;
 import com.example.demo.bean.JobSeekersBean;
+import com.example.demo.bean.PageCountBean;
 import com.example.demo.bean.StudentBean;
 import com.example.demo.service.UserServiceIMPL;
 
@@ -29,6 +30,8 @@ public class UserController {
 	@Autowired
 	UserServiceIMPL service;
 	
+	PageCountBean pcb = new PageCountBean();
+	private int Id;
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public ModelAndView login() {
 		return new ModelAndView("index","jobseeker", new JobSeekersBean());
@@ -50,6 +53,7 @@ public class UserController {
 			else {
 			modelandview.setViewName("jobseekers");
 			modelandview.addObject("message","Welcome "+stubean.getFirstName()+" Courses will be Added Soon...!!!");
+			Id = stubean.getStudentId();
 			}
 		}
 		else {
@@ -58,6 +62,11 @@ public class UserController {
 			modelandview.addObject("message", "Enter Valid UserName or Password");
 		}
 		return modelandview;
+	}
+	
+	@RequestMapping(value="/demojobseekershome", method=RequestMethod.GET)
+	public ModelAndView demofirst() {
+		return new ModelAndView("jobseekers","message","Welcome Courses will be Added Soon...!!!");
 	}
 	
 	@RequestMapping(value="/admin", method=RequestMethod.GET)
@@ -88,11 +97,29 @@ public class UserController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/studentdetails",method=RequestMethod.GET)
-	public ModelAndView studentreport() {
+	@RequestMapping(value="/studentdetail",method=RequestMethod.POST)
+	public ModelAndView changeCount(@ModelAttribute("pcb") PageCountBean page,BindingResult b) {
+		if(b.hasErrors()) {
+		pcb.setCount(page.getCount());
+		}
+		else {
+			pcb.setCount(page.getCount());
+		}
+		return studentreport(0);
+	}
+	
+	public int getPageCount() {
+		return pcb.getCount();
+	}
+	
+	@RequestMapping(value="/studentdetails{no}",method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView studentreport(@PathVariable("no") int no) {
 		ModelAndView modelandview = new ModelAndView();
-		List<StudentBean> sbean = service.findAll();
+		List<StudentBean> sbean = service.findAll(no,getPageCount());
+		int totalpages = service.findAll().size()/getPageCount();
+		modelandview.addObject("pcb", new PageCountBean());
 		modelandview.addObject("stubean",sbean);
+		modelandview.addObject("total", totalpages);
 		modelandview.setViewName("studentreport");
 		return modelandview;
 	}
@@ -151,9 +178,37 @@ public class UserController {
 	public ModelAndView findStudent(@PathVariable("s") String value) {
 		ModelAndView mv = new ModelAndView();
 		List<StudentBean> sbean = service.search(value);
+		mv.addObject("pcb", new PageCountBean());
 		mv.addObject("stubean",sbean);
 		mv.setViewName("studentreport");
 		return mv;
+	}
+	
+	@RequestMapping(value="/demoforjobseekers", method=RequestMethod.GET)
+	public ModelAndView demologin() {
+		return new ModelAndView("demohome");
+	}
+	
+	@RequestMapping(value="/updatefromjobseekers",method=RequestMethod.GET)
+	public ModelAndView editjobseeker()
+	{
+		ModelAndView modelandview = new ModelAndView();
+		List<StudentBean> sbean = service.update(Id);
+		for(StudentBean sBean:sbean){
+			modelandview.setViewName("jobseekerUpdate");
+			modelandview.addObject("studentbean",sBean);
+		}
+		modelandview.addObject("stbean",sbean);
+		return modelandview;
+	}
+	@RequestMapping(value="/jobseekeredited",method=RequestMethod.POST)
+	public ModelAndView jobseekereditedsuccessful(@Valid @ModelAttribute("studentbean") StudentBean sbean ,BindingResult b) throws Exception {
+		ModelAndView modelandview = new ModelAndView();
+		int id = service.getId();
+		String s = service.edited(sbean,id);
+		modelandview.addObject("jobseeker", new JobSeekersBean());
+		modelandview.setViewName("index");
+		return modelandview;
 	}
 
 }

@@ -9,6 +9,8 @@
 <body>
 <center>
 <h1>${message}</h1>
+<a href="${pageContext.request.contextPath}/demoforjobseekers">Click for Demo Application</a><br><br>
+<a href="${pageContext.request.contextPath}/updatefromjobseekers">Update Details</a><br><br>
 <a href="${pageContext.request.contextPath}/login">Click to LogOut</a>
 </center>
 </body>

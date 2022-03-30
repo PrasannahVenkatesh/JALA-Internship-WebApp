@@ -8,6 +8,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Update Details</title>
+<script type="text/javascript">
+function load(){
+	alert("Updated Successfully! Please Login again!!!");
+}
+</script>
 </head>
 <body>
 <!-- Using LocalDate library to restrict the dates and timespan for our needs. Its has many inbuilt methods to perform desired actions. 
@@ -18,7 +23,7 @@ LocalDate maxdate = today.minusDays(6570);
 LocalDate avaldate = today.plusDays(90);
 %>
 <center>
-<form:form action="${pageContext.request.contextPath}/edited" modelAttribute="studentbean" method="post">
+<form:form action="${pageContext.request.contextPath}/jobseekeredited" modelAttribute="studentbean" method="post">
 		<!-- Getting values from the UserController and using forEach method in form tag to display already entered values for easy updation -->
 		<c:forEach var="sb" items="${stbean}">
 		<h1>Update the Student Details of ID: ${sb.studentId}</h1>
@@ -43,11 +48,7 @@ LocalDate avaldate = today.plusDays(90);
 			<td><form:input path="emailId" value="${sb.emailId}"></form:input></td>
 			<td><form:errors path="emailId" cssClass="error"></form:errors>
 			</tr>
-			<tr>
-			<td>Set Password:</td>
-			<td><form:input path="password" value="${sb.password}"></form:input></td>
-			<td><form:errors path="password" cssClass="error"></form:errors>
-			</tr>
+			<form:hidden path="password" value="${sb.password}"></form:hidden>
 			<tr>
 			<td>Gender:</td>
 			<td><form:input path="gender" value="${sb.gender}"></form:input></td>
@@ -75,18 +76,14 @@ LocalDate avaldate = today.plusDays(90);
 			<td><form:input path="skills" value="${sb.skills}"></form:input></td>
 			<td><form:errors path="skills" cssClass="error"></form:errors>
 			</tr>
-			<tr>
-			<td>Active till Date:</td>
-			<td><form:input path="activeTill" type="date" value="${sb.activeTill}" max="<%= avaldate %>" min="<%= today %>" ></form:input></td>
-			<td><form:errors path="activeTill" cssClass="error"></form:errors>
-			</tr>
+			<form:hidden path="activeTill" value="${sb.activeTill}" max="<%= avaldate %>" min="<%= today %>" ></form:hidden>
 			<tr>
 			<td>Description:</td>
 			<td><form:textarea path="description" maxlength="50" placeholder="${sb.description}"></form:textarea></td>
 			</tr>
 		</table>
 		<br>
-		<input type="submit" label="Submit"></input>
+		<input type="submit" label="Submit" onclick="load()" ></input>
 		</c:forEach>
 	</form:form>
 </center>
