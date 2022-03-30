@@ -1,7 +1,5 @@
 package com.example.crud.controller;
 
-import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,19 +13,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.crud.bean.DemoForJobSeekerBean;
+import com.example.crud.bean.StudentBean;
 import com.example.crud.bean.PageCountBean;
-import com.example.crud.service.DemoForJobSeekerServiceIMPL;
+import com.example.crud.service.UserServiceIMPL;
 
 
 /*
  * Controller acts as bridge between database/bean and webpage, It accepts the url and connect with repective function with the help of RequestMapping annotation.
  */
 @RestController
-public class DemoForJobSeekerController {
+public class UserController {
 	
 	@Autowired
-	DemoForJobSeekerServiceIMPL service;
+	UserServiceIMPL service;
 	
 	PageCountBean pcb = new PageCountBean();
 	@RequestMapping(value="/login", method=RequestMethod.GET)
@@ -48,7 +46,7 @@ public class DemoForJobSeekerController {
 	@RequestMapping(value="/demostudentdetails{no}",method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView studentreport(@PathVariable("no") int no) {
 		ModelAndView modelandview = new ModelAndView();
-		List<DemoForJobSeekerBean> sbean = service.findAll(no,getPageCount());
+		List<StudentBean> sbean = service.findAll(no,getPageCount());
 		int totalpages = service.findAll().size()/getPageCount();
 		modelandview.addObject("pcb", new PageCountBean());
 		modelandview.addObject("stubean",sbean);
@@ -59,12 +57,12 @@ public class DemoForJobSeekerController {
 	
 	@RequestMapping(value="/democreatestudent",method=RequestMethod.GET)
 	public ModelAndView studentCreation() {
-		return new ModelAndView("demoCreationTab","studentbean",new DemoForJobSeekerBean());
+		return new ModelAndView("demoCreationTab","studentbean",new StudentBean());
 	}
 	
 	// Enrollment form validation
 	@RequestMapping(value="/demosuccess",method=RequestMethod.POST)
-	public ModelAndView successfulCreation(@Valid @ModelAttribute("studentbean") DemoForJobSeekerBean sbean ,BindingResult b) throws Exception {
+	public ModelAndView successfulCreation(@Valid @ModelAttribute("studentbean") StudentBean sbean ,BindingResult b) throws Exception {
 		ModelAndView modelandview = new ModelAndView();
 		if(b.hasErrors()) {
 			modelandview.setViewName("demoCreationTab");
@@ -88,8 +86,8 @@ public class DemoForJobSeekerController {
 	public ModelAndView editStudent(@PathVariable("Id") int studentID)
 	{
 		ModelAndView modelandview = new ModelAndView();
-		List<DemoForJobSeekerBean> sbean = service.update(studentID);
-		for(DemoForJobSeekerBean sBean:sbean){
+		List<StudentBean> sbean = service.update(studentID);
+		for(StudentBean sBean:sbean){
 			modelandview.setViewName("demoUpdate");
 			modelandview.addObject("studentbean",sBean);
 		}
@@ -98,7 +96,7 @@ public class DemoForJobSeekerController {
 	}
 	
 	@RequestMapping(value="/demoedited",method=RequestMethod.POST)
-	public ModelAndView editedsuccessful(@Valid @ModelAttribute("studentbean") DemoForJobSeekerBean sbean ,BindingResult b) throws Exception {
+	public ModelAndView editedsuccessful(@Valid @ModelAttribute("studentbean") StudentBean sbean ,BindingResult b) throws Exception {
 		ModelAndView modelandview = new ModelAndView();
 		int id = service.getId();
 		String s = service.edited(sbean,id);
@@ -110,7 +108,7 @@ public class DemoForJobSeekerController {
 	@RequestMapping(value="/demosearch{s}",method=RequestMethod.GET)
 	public ModelAndView findStudent(@PathVariable("s") String value) {
 		ModelAndView mv = new ModelAndView();
-		List<DemoForJobSeekerBean> sbean = service.search(value);
+		List<StudentBean> sbean = service.search(value);
 		mv.addObject("pcb", new PageCountBean());
 		mv.addObject("stubean",sbean);
 		mv.setViewName("demoStudentReport");

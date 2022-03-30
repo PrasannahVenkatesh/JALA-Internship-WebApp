@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class DemoForJobSeekerBean {
+public class StudentBean {
 	
 	// Restriction like mandatory field etc., are achieved using NotEmpty annotation to avoid empty values.
 		private int studentId;

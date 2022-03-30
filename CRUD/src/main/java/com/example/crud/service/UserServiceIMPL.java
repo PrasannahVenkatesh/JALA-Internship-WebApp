@@ -10,40 +10,40 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.crud.bean.DemoForJobSeekerBean;
-import com.example.crud.dao.DemoForJobSeekerDAO;
-import com.example.crud.entity.DemoForJobSeekerEntity;
+import com.example.crud.bean.StudentBean;
+import com.example.crud.dao.UserDAO;
+import com.example.crud.entity.StudentEntity;
 
 
 /* In Service class, The methods in DAO are called and it acts as bridge between DAO and UserController class. 
  * Convertion of Entity to Bean and viceversa are done by using BeanUtils methods
  * */
 @Service
-public class DemoForJobSeekerServiceIMPL implements DemoForJobSeekerService{
+public class UserServiceIMPL implements UserService{
 	
 	@Autowired
-	DemoForJobSeekerDAO dao;
+	UserDAO dao;
 	
 	int ID = 0;
 
-	public List<DemoForJobSeekerBean> findAll(int n,int size) {
-		List<DemoForJobSeekerBean> sbean = new ArrayList<>();
+	public List<StudentBean> findAll(int n,int size) {
+		List<StudentBean> sbean = new ArrayList<>();
 		Pageable paging = PageRequest.of(n, size);
-        Page<DemoForJobSeekerEntity> pagedResult = dao.findAll(paging);
-		List<DemoForJobSeekerEntity> sentity =  pagedResult.toList();
-		for(DemoForJobSeekerEntity entity: sentity) {
-			DemoForJobSeekerBean sb = new DemoForJobSeekerBean();
+        Page<StudentEntity> pagedResult = dao.findAll(paging);
+		List<StudentEntity> sentity =  pagedResult.toList();
+		for(StudentEntity entity: sentity) {
+			StudentBean sb = new StudentBean();
 			BeanUtils.copyProperties(entity, sb);
 			sbean.add(sb);
 		}
 		return sbean;
 	}
 	
-	public List<DemoForJobSeekerBean> findAll() {
-		List<DemoForJobSeekerBean> sbean = new ArrayList<>();
-		List<DemoForJobSeekerEntity> sentity =  dao.findAll();
-		for(DemoForJobSeekerEntity entity: sentity) {
-			DemoForJobSeekerBean sb = new DemoForJobSeekerBean();
+	public List<StudentBean> findAll() {
+		List<StudentBean> sbean = new ArrayList<>();
+		List<StudentEntity> sentity =  dao.findAll();
+		for(StudentEntity entity: sentity) {
+			StudentBean sb = new StudentBean();
 			BeanUtils.copyProperties(entity, sb);
 			sbean.add(sb);
 		}
@@ -51,8 +51,8 @@ public class DemoForJobSeekerServiceIMPL implements DemoForJobSeekerService{
 	}
 	
 	@Override
-	public String save(DemoForJobSeekerBean sbean) throws Exception {
-		DemoForJobSeekerEntity sentity = new DemoForJobSeekerEntity();
+	public String save(StudentBean sbean) throws Exception {
+		StudentEntity sentity = new StudentEntity();
 		BeanUtils.copyProperties(sbean, sentity);
 		dao.save(sentity);
 		return "Student Created Successfully";
@@ -62,10 +62,10 @@ public class DemoForJobSeekerServiceIMPL implements DemoForJobSeekerService{
 		dao.deleteById(id);
 		return "Student Details Deleted Successfully";
 	}
-	public List<DemoForJobSeekerBean> update(int id){
-		List<DemoForJobSeekerBean> sb = new ArrayList<>();
-		DemoForJobSeekerBean sbean = new DemoForJobSeekerBean();
-		DemoForJobSeekerEntity sentity =  dao.getById(id);
+	public List<StudentBean> update(int id){
+		List<StudentBean> sb = new ArrayList<>();
+		StudentBean sbean = new StudentBean();
+		StudentEntity sentity =  dao.getById(id);
 		BeanUtils.copyProperties(sentity, sbean);
 		sb.add(sbean);
 		ID = id;
@@ -75,8 +75,8 @@ public class DemoForJobSeekerServiceIMPL implements DemoForJobSeekerService{
 	public int getId() {
 		return ID;
 	}
-	public String edited(DemoForJobSeekerBean sbean,int id) throws Exception {
-		DemoForJobSeekerEntity sentity = new DemoForJobSeekerEntity();
+	public String edited(StudentBean sbean,int id) throws Exception {
+		StudentEntity sentity = new StudentEntity();
 		//BeanUtils.copyProperties(sbean, sentity);
 		sentity = dao.getById(id);
 		sentity.setFirstName(sbean.getFirstName());
@@ -92,20 +92,20 @@ public class DemoForJobSeekerServiceIMPL implements DemoForJobSeekerService{
 		return "Details Updated Successfully";
 	}
 	
-	public List<DemoForJobSeekerBean> search(String value){
-		List<DemoForJobSeekerEntity> sentity = dao.findBySearch(value);
-		List<DemoForJobSeekerBean> sbean = new ArrayList<>();
-		for(DemoForJobSeekerEntity e:sentity) {
-			DemoForJobSeekerBean b = new DemoForJobSeekerBean();
+	public List<StudentBean> search(String value){
+		List<StudentEntity> sentity = dao.findBySearch(value);
+		List<StudentBean> sbean = new ArrayList<>();
+		for(StudentEntity e:sentity) {
+			StudentBean b = new StudentBean();
 			BeanUtils.copyProperties(e, b);
 			sbean.add(b);
 		}
 		return sbean;
 	}
 	
-	public DemoForJobSeekerBean checkJobSeeker(String phonenumber) {
-		DemoForJobSeekerEntity se = dao.checkJobSeeker(phonenumber);
-		DemoForJobSeekerBean sb = new DemoForJobSeekerBean();
+	public StudentBean checkJobSeeker(String phonenumber) {
+		StudentEntity se = dao.checkJobSeeker(phonenumber);
+		StudentBean sb = new StudentBean();
 		BeanUtils.copyProperties(se, sb);
 		return sb;
 	}
