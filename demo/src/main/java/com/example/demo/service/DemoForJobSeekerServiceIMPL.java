@@ -3,6 +3,12 @@ package com.example.demo.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,10 +25,14 @@ import com.example.demo.entity.DemoForJobSeekerEntity;
  * Convertion of Entity to Bean and viceversa are done by using BeanUtils methods
  * */
 @Service
+@Transactional
 public class DemoForJobSeekerServiceIMPL implements DemoForJobSeekerService{
 	
 	@Autowired
 	DemoForJobSeekerDAO dao;
+	
+	@PersistenceContext
+	EntityManager em;
 	
 	int ID = 0;
 
@@ -62,6 +72,16 @@ public class DemoForJobSeekerServiceIMPL implements DemoForJobSeekerService{
 		dao.deleteById(id);
 		return "Student Details Deleted Successfully";
 	}
+	
+	public void deleteall() {
+		Query q = em.createNativeQuery("truncate table jobseekerdemo");
+		q.executeUpdate();
+		//Query qu = em.createNativeQuery("create table jobseekerdemo(first_name varchar(255), last_name varchar(255), image tinyblob, date Date, description varchar(255), emil_id varchar(255), gender varchar(255), mobile_number varchar(255), qualification varchar(255), skills varchar(255))");
+		//qu.executeUpdate();
+		em.close();
+		
+	}
+	
 	public List<DemoForJobSeekerBean> update(int id){
 		List<DemoForJobSeekerBean> sb = new ArrayList<>();
 		DemoForJobSeekerBean sbean = new DemoForJobSeekerBean();

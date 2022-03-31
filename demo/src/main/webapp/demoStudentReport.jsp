@@ -82,7 +82,7 @@ window.location="http://localhost:8080/demostudentdetails"+p;
 <c:forEach var="i" begin="0" end="${total}">
 <button id="pageNo" onclick="run(${i})">${i+1}</button></td>
 </c:forEach><br>
-<a href="${pageContext.request.contextPath}/demoforjobseeker">Home</a>
+<a href="${pageContext.request.contextPath}/actionhome">Home</a>
 </center>
 </body>
 </html>

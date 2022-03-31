@@ -10,7 +10,7 @@
 <center>
 <!-- message is send from UserController and its displayed in Webpage and added link to view studentdetails -->
 <h3>${message}</h3>
-<a href="${pageContext.request.contextPath}/demoforjobseeker">Home</a>
+<a href="${pageContext.request.contextPath}/actionhome">Home</a>
 </center>
 </body>
 </html>

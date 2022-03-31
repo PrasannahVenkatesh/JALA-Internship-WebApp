@@ -183,11 +183,11 @@ public class UserController {
 		mv.setViewName("studentreport");
 		return mv;
 	}
-	
+	/*
 	@RequestMapping(value="/demoforjobseekers", method=RequestMethod.GET)
 	public ModelAndView demologin() {
 		return new ModelAndView("demohome");
-	}
+	}*/
 	
 	@RequestMapping(value="/updatefromjobseekers",method=RequestMethod.GET)
 	public ModelAndView editjobseeker()

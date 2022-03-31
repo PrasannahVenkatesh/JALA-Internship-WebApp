@@ -9,8 +9,8 @@
 <body>
 <center>
 <h2>Welcome!!!</h2><br>
-<a href="${pageContext.request.contextPath}/demostudentdetails0">Click to View Student Details</a><br><br>
 <a href="${pageContext.request.contextPath}/democreatestudent">Click to Create Student</a><br><br>
+<a href="${pageContext.request.contextPath}/demostudentdetails0">Click to View Student Details</a><br><br>
 <a href="${pageContext.request.contextPath}/demojobseekershome">Click to Courses</a><br><br>
 </center>
 </body>

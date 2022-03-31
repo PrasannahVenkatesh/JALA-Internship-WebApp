@@ -30,8 +30,14 @@ public class DemoForJobSeekerController {
 	DemoForJobSeekerServiceIMPL service;
 	
 	PageCountBean pcb = new PageCountBean();
-	@RequestMapping(value="/demoforjobseeker", method=RequestMethod.GET)
+	@RequestMapping(value="/demoforjobseekers", method=RequestMethod.GET)
 	public ModelAndView login() {
+		service.deleteall();
+		return new ModelAndView("demohome");
+	}
+	
+	@RequestMapping(value="/actionhome", method=RequestMethod.GET)
+	public ModelAndView newlogin() {
 		return new ModelAndView("demohome");
 	}
 	

@@ -62,6 +62,7 @@ public class UserServiceIMPL implements UserService{
 		dao.deleteById(id);
 		return "Student Details Deleted Successfully";
 	}
+	
 	public List<StudentBean> update(int id){
 		List<StudentBean> sb = new ArrayList<>();
 		StudentBean sbean = new StudentBean();
