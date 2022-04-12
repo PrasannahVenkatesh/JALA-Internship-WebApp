@@ -24,7 +24,7 @@ public class UserServiceIMPL implements UserService{
 	@Autowired
 	StudentDAO dao;
 	
-	private int ID = 0;
+	private static int ID = 0;
 
 	public List<StudentBean> findAll(int n,int size) {
 		List<StudentBean> sbean = new ArrayList<>();
@@ -72,7 +72,14 @@ public class UserServiceIMPL implements UserService{
 		ID = id;
 		return sb;
 	}
-	
+	public int sendId(int id) {
+		ID = id;
+		return ID;
+	}
+	public static int getJobSeekerId()
+	{
+		return ID;
+	}
 	public int getId() {
 		return ID;
 	}

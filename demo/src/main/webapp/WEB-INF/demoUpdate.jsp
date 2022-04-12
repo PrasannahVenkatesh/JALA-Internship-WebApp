@@ -21,7 +21,7 @@ LocalDate avaldate = today.plusDays(90);
 <form:form action="${pageContext.request.contextPath}/demoedited" modelAttribute="studentbean" method="post">
 		<!-- Getting values from the UserController and using forEach method in form tag to display already entered values for easy updation -->
 		<c:forEach var="sb" items="${stbean}">
-		<h1>Update the Student Details of ID: ${sb.studentId}</h1>
+		<h1>Update the Student Details of ID: ${sb.rollNo}</h1>
 		<table border="1">
 			<tr>
 			<td>First Name:</td>

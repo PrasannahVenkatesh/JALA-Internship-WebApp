@@ -32,7 +32,7 @@ public class DemoForJobSeekerController {
 	PageCountBean pcb = new PageCountBean();
 	@RequestMapping(value="/demoforjobseekers", method=RequestMethod.GET)
 	public ModelAndView login() {
-		service.deleteall();
+		//service.deleteall();
 		return new ModelAndView("demohome");
 	}
 	
@@ -76,6 +76,7 @@ public class DemoForJobSeekerController {
 			modelandview.setViewName("demoCreationTab");
 		}
 		else {
+		
 		String s = service.save(sbean);
 		modelandview.addObject("message",s);
 		modelandview.setViewName("demoSuccessPage");

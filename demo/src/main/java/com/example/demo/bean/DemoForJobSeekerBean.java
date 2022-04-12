@@ -12,6 +12,7 @@ public class DemoForJobSeekerBean {
 	
 	// Restriction like mandatory field etc., are achieved using NotEmpty annotation to avoid empty values.
 		private int studentId;
+		private int rollNo;
 		@NotEmpty(message="This is  required field")
 		private String firstName;
 		@NotEmpty(message="This is  required field")
@@ -33,6 +34,20 @@ public class DemoForJobSeekerBean {
 		@NotEmpty(message="This is  required field")
 		private byte[] image;
 		private String description;
+		private int jobseekerId;
+		
+		public int getRollNo() {
+			return rollNo;
+		}
+		public void setRollNo(int rollNo) {
+			this.rollNo = rollNo;
+		}
+		public int getJobseekerId() {
+			return jobseekerId;
+		}
+		public void setJobseekerId(int jobseekerId) {
+			this.jobseekerId = jobseekerId;
+		}
 		public int getStudentId() {
 			return studentId;
 		}

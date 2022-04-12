@@ -31,7 +31,8 @@ public class UserController {
 	UserServiceIMPL service;
 	
 	PageCountBean pcb = new PageCountBean();
-	private int Id;
+	public int JobSeekerId = 0;
+	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public ModelAndView login() {
 		return new ModelAndView("index","jobseeker", new JobSeekersBean());
@@ -53,7 +54,7 @@ public class UserController {
 			else {
 			modelandview.setViewName("jobseekers");
 			modelandview.addObject("message","Welcome "+stubean.getFirstName()+" Courses will be Added Soon...!!!");
-			Id = stubean.getStudentId();
+			JobSeekerId = service.sendId(stubean.getStudentId());
 			}
 		}
 		else {
@@ -63,7 +64,6 @@ public class UserController {
 		}
 		return modelandview;
 	}
-	
 	@RequestMapping(value="/demojobseekershome", method=RequestMethod.GET)
 	public ModelAndView demofirst() {
 		return new ModelAndView("jobseekers","message","Welcome Courses will be Added Soon...!!!");
@@ -193,7 +193,7 @@ public class UserController {
 	public ModelAndView editjobseeker()
 	{
 		ModelAndView modelandview = new ModelAndView();
-		List<StudentBean> sbean = service.update(Id);
+		List<StudentBean> sbean = service.update(JobSeekerId);
 		for(StudentBean sBean:sbean){
 			modelandview.setViewName("jobseekerUpdate");
 			modelandview.addObject("studentbean",sBean);

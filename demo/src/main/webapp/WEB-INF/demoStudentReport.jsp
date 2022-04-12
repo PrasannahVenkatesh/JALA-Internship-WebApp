@@ -71,7 +71,7 @@ window.location="http://localhost:8080/demostudentdetails"+p;
 <td>Student ID</td><td>FirstName</td><td>LastName</td><td>Skills</td><td>MobileNumber</td>
 </tr>
 <tr>
-<td>${sb.studentId}</td><td>${sb.firstName}</td><td>${sb.lastName}</td><td>${sb.skills}</td><td>${sb.mobileNumber}</td>
+<td>${sb.rollNo}</td><td>${sb.firstName}</td><td>${sb.lastName}</td><td>${sb.skills}</td><td>${sb.mobileNumber}</td>
 <!-- function calling while clicking the button -->
 <td><button onclick="update(${sb.studentId})">Click to Edit</button></td>
 <td><button onclick="remove(${sb.studentId})">Click to Delete</button></td>

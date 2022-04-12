@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.bean.DemoForJobSeekerBean;
+import com.example.demo.controller.UserController;
 import com.example.demo.dao.DemoForJobSeekerDAO;
 import com.example.demo.entity.DemoForJobSeekerEntity;
 
@@ -39,7 +40,7 @@ public class DemoForJobSeekerServiceIMPL implements DemoForJobSeekerService{
 	public List<DemoForJobSeekerBean> findAll(int n,int size) {
 		List<DemoForJobSeekerBean> sbean = new ArrayList<>();
 		Pageable paging = PageRequest.of(n, size);
-        Page<DemoForJobSeekerEntity> pagedResult = dao.findAll(paging);
+        Page<DemoForJobSeekerEntity> pagedResult = dao.findallpage(UserServiceIMPL.getJobSeekerId(),paging);
 		List<DemoForJobSeekerEntity> sentity =  pagedResult.toList();
 		for(DemoForJobSeekerEntity entity: sentity) {
 			DemoForJobSeekerBean sb = new DemoForJobSeekerBean();
@@ -51,7 +52,7 @@ public class DemoForJobSeekerServiceIMPL implements DemoForJobSeekerService{
 	
 	public List<DemoForJobSeekerBean> findAll() {
 		List<DemoForJobSeekerBean> sbean = new ArrayList<>();
-		List<DemoForJobSeekerEntity> sentity =  dao.findAll();
+		List<DemoForJobSeekerEntity> sentity =  dao.findallrecords(UserServiceIMPL.getJobSeekerId());
 		for(DemoForJobSeekerEntity entity: sentity) {
 			DemoForJobSeekerBean sb = new DemoForJobSeekerBean();
 			BeanUtils.copyProperties(entity, sb);
@@ -63,6 +64,10 @@ public class DemoForJobSeekerServiceIMPL implements DemoForJobSeekerService{
 	@Override
 	public String save(DemoForJobSeekerBean sbean) throws Exception {
 		DemoForJobSeekerEntity sentity = new DemoForJobSeekerEntity();
+		sbean.setRollNo((dao.findmaxrollno(UserServiceIMPL.getJobSeekerId()))+1);
+		sbean.setJobseekerId(UserServiceIMPL.getJobSeekerId());
+		sentity.setJobseekerId(sbean.getJobseekerId());
+		sentity.setRollNo(sbean.getRollNo());
 		BeanUtils.copyProperties(sbean, sentity);
 		dao.save(sentity);
 		return "Student Created Successfully";
@@ -98,6 +103,8 @@ public class DemoForJobSeekerServiceIMPL implements DemoForJobSeekerService{
 	public String edited(DemoForJobSeekerBean sbean,int id) throws Exception {
 		DemoForJobSeekerEntity sentity = new DemoForJobSeekerEntity();
 		//BeanUtils.copyProperties(sbean, sentity);
+		sbean.setRollNo((dao.findmaxrollno(UserServiceIMPL.getJobSeekerId()))+1);
+		sbean.setJobseekerId(UserServiceIMPL.getJobSeekerId());
 		sentity = dao.getById(id);
 		sentity.setFirstName(sbean.getFirstName());
 		sentity.setLastName(sbean.getLastName());
@@ -108,12 +115,14 @@ public class DemoForJobSeekerServiceIMPL implements DemoForJobSeekerService{
 		sentity.setQualification(sbean.getQualification());
 		sentity.setSkills(sbean.getSkills());
 		sentity.setDescription(sbean.getDescription());
+		sentity.setJobseekerId(sbean.getJobseekerId());
+		sentity.setRollNo(sbean.getRollNo());
 		dao.save(sentity);
 		return "Details Updated Successfully";
 	}
 	
 	public List<DemoForJobSeekerBean> search(String value){
-		List<DemoForJobSeekerEntity> sentity = dao.findBySearch(value);
+		List<DemoForJobSeekerEntity> sentity = dao.findBySearch(value,UserServiceIMPL.getJobSeekerId());
 		List<DemoForJobSeekerBean> sbean = new ArrayList<>();
 		for(DemoForJobSeekerEntity e:sentity) {
 			DemoForJobSeekerBean b = new DemoForJobSeekerBean();

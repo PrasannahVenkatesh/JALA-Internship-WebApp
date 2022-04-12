@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * Entity Class is used to store data in database and primary key is set by using Id annotation
  */
 @Entity
-@Table(name = "student")
+@Table(name = "student",schema="users_database")
 public class StudentEntity {
 	
 	@Id

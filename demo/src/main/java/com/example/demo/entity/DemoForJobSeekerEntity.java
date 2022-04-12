@@ -9,12 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "jobseekerdemo")
+@Table(name = "jobseeker")
 public class DemoForJobSeekerEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int studentId;
+	private int rollNo;
 	private String firstName;
 	private String lastName;
 	private String mobileNumber;
@@ -25,7 +26,22 @@ public class DemoForJobSeekerEntity {
 	private String skills;
 	private byte[] image;
 	private String description;
-	public int getStudentId() {
+	private int jobseekerId;
+	
+	
+	public int getRollNo() {
+		return rollNo;
+	}
+	public void setRollNo(int rollNo) {
+		this.rollNo = rollNo;
+	}
+	public int getJobseekerId() {
+		return jobseekerId;
+	}
+	public void setJobseekerId(int jobseekerId) {
+		this.jobseekerId = jobseekerId;
+	}
+	public  int getStudentId() {
 		return studentId;
 	}
 	public void setStudentId(int studentId) {
