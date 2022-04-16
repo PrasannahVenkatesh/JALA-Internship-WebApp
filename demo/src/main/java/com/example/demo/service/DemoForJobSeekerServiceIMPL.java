@@ -64,7 +64,12 @@ public class DemoForJobSeekerServiceIMPL implements DemoForJobSeekerService{
 	@Override
 	public String save(DemoForJobSeekerBean sbean) throws Exception {
 		DemoForJobSeekerEntity sentity = new DemoForJobSeekerEntity();
+		if(dao.findallrecords(UserServiceIMPL.getJobSeekerId()).isEmpty()) {
+		sbean.setRollNo(1);
+		}
+		else {
 		sbean.setRollNo((dao.findmaxrollno(UserServiceIMPL.getJobSeekerId()))+1);
+		}
 		sbean.setJobseekerId(UserServiceIMPL.getJobSeekerId());
 		sentity.setJobseekerId(sbean.getJobseekerId());
 		sentity.setRollNo(sbean.getRollNo());
